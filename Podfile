@@ -6,6 +6,7 @@ target 'MoviesApp' do
   use_frameworks!
   pod 'TableKit'
   pod 'Unbox'
+  pod 'MBProgressHUD'
 
   target 'MoviesAppTests' do
     inherit! :search_paths

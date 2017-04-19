@@ -1,3 +1,3 @@
-protocol SearchView: class {
+protocol SearchView: IndicatorShowable {
   
 }

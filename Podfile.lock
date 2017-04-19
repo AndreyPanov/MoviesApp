@@ -1,18 +1,21 @@
 PODS:
+  - MBProgressHUD (1.0.0)
   - Mockit (1.2.0)
   - TableKit (2.2.0)
   - Unbox (2.2.0)
 
 DEPENDENCIES:
+  - MBProgressHUD
   - Mockit
   - TableKit
   - Unbox
 
 SPEC CHECKSUMS:
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   Mockit: 1be3bdec5663513468cfd71fccd83f94432ae55c
   TableKit: d3f552039edf213ed3517b72449742df04bf281e
   Unbox: 03d7128ce429987986bc08d967e9d5e0da158946
 
-PODFILE CHECKSUM: e5930e66263d12d52843b13781060cded8f10284
+PODFILE CHECKSUM: c32a44d60abaa620224f35fec6231c75bf7fc4c1
 
 COCOAPODS: 1.2.0

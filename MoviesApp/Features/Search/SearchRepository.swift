@@ -4,7 +4,7 @@ class SearchRepository {
     
   }
   
-  func getPastSearchResults() {
+  func getLasttSearchResults() {
     
   }
 }
