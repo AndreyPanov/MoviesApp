@@ -1,9 +1,18 @@
-//
-//  SearchPresenter.swift
-//  MoviesApp
-//
-//  Created by Андрей on 18.04.17.
-//  Copyright © 2017 Andrey Panov. All rights reserved.
-//
-
-import Foundation
+class SearchPresenter {
+  
+  private weak var view: SearchView?
+  private var repository: SearchRepository
+  
+  init(view: SearchView, repository: SearchRepository = .init()) {
+    self.view = view
+    self.repository = repository
+  }
+  
+  func onViewDidLoad() {
+    
+  }
+  
+  func onSearchTextChanged(to text: String?) {
+    
+  }
+}

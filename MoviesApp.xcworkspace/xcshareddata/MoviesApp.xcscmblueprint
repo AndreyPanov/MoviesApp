@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9D9BD237407B565E3BAEB13468D544D632D1CAE1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4411F98DCFE93E1498D3F810B2AE12CC6905BB74" : 9223372036854775807,
+    "9D9BD237407B565E3BAEB13468D544D632D1CAE1" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "339F9D1C-EF01-4452-BCAA-92D621031CE7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4411F98DCFE93E1498D3F810B2AE12CC6905BB74" : "cassandra\/",
+    "9D9BD237407B565E3BAEB13468D544D632D1CAE1" : "MoviesApp\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MoviesApp",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MoviesApp.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/blacklane\/cassandra",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4411F98DCFE93E1498D3F810B2AE12CC6905BB74"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AndreyPanov\/MoviesApp",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9D9BD237407B565E3BAEB13468D544D632D1CAE1"
+    }
+  ]
+}
