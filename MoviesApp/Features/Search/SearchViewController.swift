@@ -1,25 +1,13 @@
 import UIKit
 import TableKit
 
-class SearchViewController: UIViewController, SearchView {
+class SearchViewController: ViewController, SearchView {
   
-  @IBOutlet weak var tableView: UITableView! {
-    didSet {
-      tableDirector = TableDirector(tableView: tableView)
-      tableSection = TableSection()
-      tableView.rowHeight = UITableViewAutomaticDimension
-    }
-  }
   @IBOutlet weak var searchBar: UISearchBar!
-  
   var presenter: SearchPresenter!
-  
-  private var tableDirector: TableDirector!
-  private var tableSection: TableSection!
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    
     presenter = SearchPresenter(view: self)
   }
 
@@ -50,8 +38,8 @@ extension SearchViewController: UISearchBarDelegate {
     presenter.onSearchTextChanged(to: searchBar.text)
     searchBar.resignFirstResponder()
   }
-  
+  /*
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     presenter.onSearchTextChanged(to: searchText)
-  }
+  }*/
 }

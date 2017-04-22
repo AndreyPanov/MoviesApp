@@ -1,35 +1,15 @@
-//
-//  ViewController.swift
-//  MoviesApp
-//
-//  Created by Andrey Panov on 19.04.17.
-//  Copyright © 2017 Andrey Panov. All rights reserved.
-//
-
 import UIKit
+import TableKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+  
+  @IBOutlet weak var tableView: UITableView! {
+    didSet {
+      tableDirector = TableDirector(tableView: tableView)
+      tableSection = TableSection()
+      tableView.rowHeight = UITableViewAutomaticDimension
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  }
+  var tableDirector: TableDirector!
+  var tableSection: TableSection!
 }
