@@ -29,17 +29,8 @@ class SearchViewController: ViewController, SearchView {
 
 extension SearchViewController: UISearchBarDelegate {
   
-  func set(searchText: String) {
-    searchBar.text = searchText
-    presenter.onSearchTextChanged(to: searchText)
-  }
-  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     presenter.onSearchTextChanged(to: searchBar.text)
     searchBar.resignFirstResponder()
   }
-  /*
-  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    presenter.onSearchTextChanged(to: searchText)
-  }*/
 }
