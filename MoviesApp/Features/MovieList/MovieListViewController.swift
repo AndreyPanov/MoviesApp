@@ -10,7 +10,7 @@ class MovieListViewController: ViewController, MovieListView {
     presenter.onViewDidLoad()
   }
   
-  func show(movies: [Movie]) {
+  func show(movies: [MovieViewModel]) {
     let rows: [Row] = movies.map { TableRow<MovieListCell>(item: $0) }
     tableSection.append(rows: rows)
     tableDirector += tableSection
