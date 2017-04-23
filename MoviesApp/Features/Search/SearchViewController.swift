@@ -27,7 +27,12 @@ class SearchViewController: ViewController, SearchView {
   }
   
   func show(suggestions: [String]) {
-    
+    let action = TableRowAction<SuggestionCell>(.click) { [unowned self] (options) in
+      self.presenter.onSearchTextChanged(to: options.item)
+    }
+    let rows: [Row] = suggestions.map { TableRow<SuggestionCell>(item: $0, actions: [action]) }
+    tableSection.append(rows: rows)
+    tableDirector += tableSection
   }
   
   func showMovieList(with movies: [Movie]) {
