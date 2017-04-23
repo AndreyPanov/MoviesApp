@@ -8,7 +8,7 @@ target 'MoviesApp' do
   pod 'Unbox'
   pod 'MBProgressHUD'
   pod 'Alamofire'
-  pod 'AlamofireNetworkActivityIndicator'
+  pod 'SwiftyUserDefaults'
 
   target 'MoviesAppTests' do
     inherit! :search_paths

@@ -9,19 +9,19 @@ class SearchPresenter {
   }
   
   func onViewDidLoad() {
-    repository.getLastSearchResults { suggestions in
+    repository.getLastSearchResults { [unowned self] suggestions in
       guard !suggestions.isEmpty else { return }
-      
+      self.view?.show(suggestions: suggestions)
     }
   }
   
-  func onSearchTextChanged(to text: String?) {
+  func onSearch(_ text: String?) {
     guard let text = text else { return }
     
     view?.showLoadingIndicator()
     repository.searchMovies(with: text, onSuccess: { [weak self] movies in
       self?.view?.hideLoadingIndicator()
-      self?.view?.showMovieList(with: movies)
+      self?.view?.onMoviesSelected?(movies)
       
     }, onError: { [weak self] message in
       self?.view?.hideLoadingIndicator()

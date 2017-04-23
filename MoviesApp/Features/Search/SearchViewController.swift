@@ -1,15 +1,11 @@
 import UIKit
 import TableKit
 
-class SearchViewController: ViewController, SearchView {
+class SearchViewController: ViewController, SearchView, UISearchBarDelegate {
   
   @IBOutlet weak var searchBar: UISearchBar!
+  var onMoviesSelected: (([Movie]) -> Void)?
   var presenter: SearchPresenter!
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    presenter = SearchPresenter(view: self)
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,21 +23,16 @@ class SearchViewController: ViewController, SearchView {
   }
   
   func show(suggestions: [String]) {
-    
+    let action = TableRowAction<SuggestionCell>(.click) { [unowned self] options in
+      self.presenter.onSearch(options.item)
+    }
+    let rows: [Row] = suggestions.map { TableRow<SuggestionCell>(item: $0, actions: [action]) }
+    tableSection.append(rows: rows)
+    tableDirector += tableSection
   }
-  
-  func showMovieList(with movies: [Movie]) {
-    let storyboard = UIStoryboard(name: "MovieListScreen", bundle: nil)
-    let controller = storyboard.instantiateViewController(withIdentifier: "MovieListViewController") as! MovieListViewController
-    controller.presenter = MovieListPresenter(view: controller, movies: movies)
-    navigationController?.pushViewController(controller, animated: true)
-  }
-}
-
-extension SearchViewController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    presenter.onSearchTextChanged(to: searchBar.text)
+    presenter.onSearch(searchBar.text)
     searchBar.resignFirstResponder()
   }
 }

@@ -4,23 +4,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  private var appCoordinator: Coordinator!
 
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    createAndPresentWindow()
+    let navController = UINavigationController()
+    appCoordinator = AppCoordinator(router: Router(with: navController))
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.rootViewController = navController
+    window?.makeKeyAndVisible()
+    
+    appCoordinator.start()
+    
     return true
-  }
-  
-  func createAndPresentWindow() {
-    
-    let storyboard = UIStoryboard(name: "SearchScreen", bundle: nil)
-    let controller = storyboard.instantiateViewController(withIdentifier: "SearchViewController")
-    let navController = UINavigationController(rootViewController: controller)
-    let window = UIWindow(frame: UIScreen.main.bounds)
-    window.rootViewController = navController
-    window.makeKeyAndVisible()
-    
-    self.window = window
   }
 }
 
