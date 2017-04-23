@@ -13,9 +13,9 @@ class MovieListViewController: ViewController, MovieListView {
   }
   
   func show(movies: [MovieViewModel]) {
+    tableDirector.clear()
     let rows: [Row] = movies.map { TableRow<MovieListCell>(item: $0) }
-    tableSection.append(rows: rows)
-    tableDirector += tableSection
+    tableDirector += TableSection(rows: rows)
   }
   
   func refresh() {

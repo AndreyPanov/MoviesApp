@@ -6,7 +6,7 @@ class MovieListCell: UITableViewCell, ConfigurableCell {
   @IBOutlet weak var posterImageView: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var descriptionLabel: UILabel!
-  private var viewModel: MovieViewModel?
+  private weak var viewModel: MovieViewModel?
   
   func configure(with movie: MovieViewModel) {
     titleLabel.text = movie.title

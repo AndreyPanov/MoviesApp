@@ -33,14 +33,15 @@ class MovieViewModel {
   func loadImage(onSuccess: @escaping (UIImage?) -> Void) {
     guard image == nil else { onSuccess(image); return }
     guard let path = movie.imagePath else { return }
-    
+    print("Start load \(movie.title)")
     let request = Alamofire.download("http://image.tmdb.org/t/p/w92" + path)
     request.responseData { [weak self] response in
       switch response.result {
         case .success(let data):
+          print("Finish load \(self!.movie.title)")
           self?.image = UIImage(data: data)
           onSuccess(self?.image)
-        default:()
+        default:print("Fail load \(self!.movie.title)")
       }
     }
   }

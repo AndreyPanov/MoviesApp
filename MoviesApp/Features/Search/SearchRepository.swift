@@ -13,7 +13,7 @@ class SearchRepository {
   }
   
   func searchMovies(with name: String, onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
-    let requestString = "http://api.themoviedb.org/3/search/movie?api_key=2696829a81b1b5827d515ff121700838&query=" + name
+    let requestString = "http://api.themoviedb.org/3/search/movie?api_key=2696829a81b1b5827d515ff121700838&query=" + name.trimmed
     Alamofire.request(requestString).responseJSON { [weak self] response in
       if let JSON = response.result.value as? [String: AnyObject],
         let jsonArray = JSON["results"] as? [[String: AnyObject]] {
