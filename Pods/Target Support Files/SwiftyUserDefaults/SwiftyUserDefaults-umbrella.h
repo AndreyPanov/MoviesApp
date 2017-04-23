@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double AlamofireNetworkActivityIndicatorVersionNumber;
-FOUNDATION_EXPORT const unsigned char AlamofireNetworkActivityIndicatorVersionString[];
+FOUNDATION_EXPORT double SwiftyUserDefaultsVersionNumber;
+FOUNDATION_EXPORT const unsigned char SwiftyUserDefaultsVersionString[];
 
