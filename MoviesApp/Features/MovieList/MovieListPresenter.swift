@@ -9,6 +9,6 @@ class MovieListPresenter {
   }
   
   func onViewDidLoad() {
-    
+    view?.show(movies: movies)
   }
 }

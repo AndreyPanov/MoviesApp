@@ -21,6 +21,7 @@ class SearchPresenter {
     view?.showLoadingIndicator()
     repository.searchMovies(with: text, onSuccess: { [weak self] movies in
       self?.view?.hideLoadingIndicator()
+      self?.view?.showMovieList(with: movies)
       
     }, onError: { [weak self] message in
       self?.view?.hideLoadingIndicator()
