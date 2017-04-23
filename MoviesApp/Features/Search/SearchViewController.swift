@@ -9,11 +9,12 @@ class SearchViewController: ViewController, SearchView, UISearchBarDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    presenter.onViewDidLoad()
+    title = "search_screen_title".localized
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    presenter.onViewWillAppear()
     searchBar.becomeFirstResponder()
   }
   

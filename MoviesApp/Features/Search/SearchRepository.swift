@@ -1,10 +1,5 @@
 import Alamofire
 
-struct ErrorState {
-  static let NotFound = "not found"
-  static let Fail = "try again"
-}
-
 class SearchRepository {
   
   private let storage: Storage
@@ -28,10 +23,10 @@ class SearchRepository {
           onSuccess(movies)
           
         } else {
-          onError(ErrorState.NotFound)
+          onError("not_found".localized)
         }
       } else {
-        onError(ErrorState.Fail)
+        onError("internet_fail".localized)
       }
     }
   }

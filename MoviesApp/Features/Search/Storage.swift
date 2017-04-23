@@ -23,5 +23,5 @@ class Storage {
 }
 
 extension DefaultsKeys {
-  static let suggestions = DefaultsKey<[String]?>(#function)
+  static let suggestions = DefaultsKey<[String]?>("suggestions")
 }

@@ -8,7 +8,7 @@ class SearchPresenter {
     self.repository = repository
   }
   
-  func onViewDidLoad() {
+  func onViewWillAppear() {
     repository.getLastSearchResults { [unowned self] suggestions in
       guard !suggestions.isEmpty else { return }
       self.view?.show(suggestions: suggestions)
