@@ -1,12 +1,17 @@
 import Alamofire
 
+struct ErrorState {
+  static let NotFound = "not found"
+  static let Fail = "try again"
+}
+
 class SearchRepository {
   
   init() {
     
   }
   
-  func getLastSearchResults(onSuccess: @escaping ([Movie]) -> Void) {
+  func getLastSearchResults(onSuccess: @escaping ([String]) -> Void) {
     
   }
   
@@ -19,10 +24,10 @@ class SearchRepository {
         if let movies: [Movie] = Movie.deserialize(with: jsonArray), !movies.isEmpty {
           onSuccess(movies)
         } else {
-          onError("not found")
+          onError(ErrorState.NotFound)
         }
       } else {
-        onError("try again")
+        onError(ErrorState.Fail)
       }
     }
   }
