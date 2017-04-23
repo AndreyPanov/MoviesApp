@@ -9,6 +9,8 @@ class Storage {
   }
   
   func add(suggestion: String) {
+    guard suggestions.first(where: { $0 == suggestion }) == nil else { return }
+    
     if suggestions.count == 10 {
       suggestions.remove(at: 0)
     }
