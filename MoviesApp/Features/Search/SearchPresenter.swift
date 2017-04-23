@@ -8,11 +8,8 @@ class SearchPresenter {
     self.repository = repository
   }
   
-  func onViewDidLoad() {
-    repository.getLastSearchResults { [unowned self] suggestions in
-      guard !suggestions.isEmpty else { return }
-      self.view?.show(suggestions: suggestions)
-    }
+  func onViewWillAppear() {
+    updateSuggestions()
   }
   
   func onSearch(_ text: String?) {
@@ -21,11 +18,19 @@ class SearchPresenter {
     view?.showLoadingIndicator()
     repository.searchMovies(with: text, onSuccess: { [weak self] movies in
       self?.view?.hideLoadingIndicator()
+      self?.updateSuggestions()
       self?.view?.onMoviesSelected?(movies)
       
     }, onError: { [weak self] message in
       self?.view?.hideLoadingIndicator()
       self?.view?.show(message: message)
     })
+  }
+  
+  private func updateSuggestions() {
+    repository.getLastSearchResults { [unowned self] suggestions in
+      guard !suggestions.isEmpty else { return }
+      self.view?.show(suggestions: suggestions)
+    }
   }
 }

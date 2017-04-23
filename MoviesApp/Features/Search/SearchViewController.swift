@@ -3,17 +3,20 @@ import TableKit
 
 class SearchViewController: ViewController, SearchView, UISearchBarDelegate {
   
-  @IBOutlet weak var searchBar: UISearchBar!
+  @IBOutlet weak var searchBar: UISearchBar! {
+    didSet { searchBar.placeholder = "search_placeholder".localized }
+  }
   var onMoviesSelected: (([Movie]) -> Void)?
   var presenter: SearchPresenter!
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    presenter.onViewDidLoad()
+    title = "search_screen_title".localized
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    presenter.onViewWillAppear()
     searchBar.becomeFirstResponder()
   }
   
@@ -23,12 +26,12 @@ class SearchViewController: ViewController, SearchView, UISearchBarDelegate {
   }
   
   func show(suggestions: [String]) {
+    tableDirector.clear()
     let action = TableRowAction<SuggestionCell>(.click) { [unowned self] options in
       self.presenter.onSearch(options.item)
     }
     let rows: [Row] = suggestions.map { TableRow<SuggestionCell>(item: $0, actions: [action]) }
-    tableSection.append(rows: rows)
-    tableDirector += tableSection
+    tableDirector += TableSection(headerTitle: "search_sceen_header".localized, footerTitle: nil, rows: rows)
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
