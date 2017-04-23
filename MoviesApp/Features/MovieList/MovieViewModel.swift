@@ -4,7 +4,7 @@ import Alamofire
 class MovieViewModel {
   
   var title: String {
-    if let date = movie.releaseDate {
+    if let date = movie.releaseDate, !date.isEmpty {
       return movie.title + ", " + "(" + date + ")"
     }
     return movie.title
