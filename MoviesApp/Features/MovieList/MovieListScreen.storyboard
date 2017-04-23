@@ -21,9 +21,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VpU-wc-5CW">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="179" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VpU-wc-5CW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieListCell" rowHeight="179" id="v7g-XF-6jf" customClass="MovieListCell" customModule="MoviesApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="179"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v7g-XF-6jf" id="jc5-2S-akp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="178.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="mEQ-sO-zwM">
+                                                    <rect key="frame" x="8" y="11" width="359" height="166.5"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="RgQ-fd-PVN">
+                                                            <rect key="frame" x="0.0" y="0.0" width="92" height="154.5"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noposter" translatesAutoresizingMaskIntoConstraints="NO" id="OJF-XX-YZS">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="92" height="136"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="136" id="apo-UL-bgo"/>
+                                                                        <constraint firstAttribute="width" constant="92" id="eb9-HM-2x7"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.02.1877" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khl-S8-bAF">
+                                                                    <rect key="frame" x="0.0" y="140" width="92" height="14.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-sO-dDB">
+                                                            <rect key="frame" x="99" y="0.0" width="260" height="112.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Batman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atL-Vk-sPc">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="260" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQl-Ub-eqD">
+                                                                    <rect key="frame" x="0.0" y="22.5" width="260" height="90"/>
+                                                                    <string key="text">The Dark Knight of Gotham City begins his war on crime with his first major enemy being the clownishly homicidal Joker, who has seized control of Gotham's underworld.</string>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="mEQ-sO-zwM" secondAttribute="bottom" constant="1" id="IoX-Ms-RfJ"/>
+                                                <constraint firstItem="mEQ-sO-zwM" firstAttribute="top" secondItem="jc5-2S-akp" secondAttribute="top" constant="11" id="VZ5-Pz-egF"/>
+                                                <constraint firstAttribute="trailing" secondItem="mEQ-sO-zwM" secondAttribute="trailing" constant="8" id="ccC-pE-mH0"/>
+                                                <constraint firstItem="mEQ-sO-zwM" firstAttribute="leading" secondItem="jc5-2S-akp" secondAttribute="leading" constant="8" id="gex-7U-lA1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="Khl-S8-bAF" id="owZ-q0-e25"/>
+                                            <outlet property="descriptionLabel" destination="FQl-Ub-eqD" id="tMD-Jz-ZhO"/>
+                                            <outlet property="posterImageView" destination="OJF-XX-YZS" id="5T9-Vb-vms"/>
+                                            <outlet property="titleLabel" destination="atL-Vk-sPc" id="Z66-7v-289"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,10 +100,16 @@
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="tableView" destination="VpU-wc-5CW" id="QHv-Wi-36s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11U-8n-NDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-338.39999999999998" y="213.64317841079463"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="noposter" width="92" height="136"/>
+    </resources>
 </document>

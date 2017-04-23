@@ -25,21 +25,23 @@ class SearchViewController: ViewController, SearchView {
     super.viewWillDisappear(animated)
     searchBar.resignFirstResponder()
   }
+  
+  func show(suggestions: [String]) {
+    
+  }
+  
+  func showMovieList(with movies: [Movie]) {
+    let storyboard = UIStoryboard(name: "MovieListScreen", bundle: nil)
+    let controller = storyboard.instantiateViewController(withIdentifier: "MovieListViewController") as! MovieListViewController
+    controller.presenter = MovieListPresenter(view: controller, movies: movies)
+    navigationController?.pushViewController(controller, animated: true)
+  }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-  
-  func set(searchText: String) {
-    searchBar.text = searchText
-    presenter.onSearchTextChanged(to: searchText)
-  }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     presenter.onSearchTextChanged(to: searchBar.text)
     searchBar.resignFirstResponder()
   }
-  /*
-  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    presenter.onSearchTextChanged(to: searchText)
-  }*/
 }
