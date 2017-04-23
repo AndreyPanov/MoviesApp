@@ -1,4 +1,6 @@
-protocol SearchView: IndicatorShowable, AlertShowable {
+protocol SearchView: IndicatorShowable, AlertShowable, Presentable {
+  
+  var onMoviesSelected: (([Movie]) -> Void)? { get set }
+  
   func show(suggestions: [String])
-  func showMovieList(with movies: [Movie])
 }
