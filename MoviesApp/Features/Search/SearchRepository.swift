@@ -2,7 +2,7 @@ import Alamofire
 
 class SearchRepository {
   
-  private let storage: Storage
+  let storage: Storage
   
   init(storage: Storage = .init()) {
     self.storage = storage

@@ -1,21 +1,30 @@
 class MovieListPresenter {
   
   private weak var view: MovieListView?
-  private let movies: [Movie]
+  private var movieViewModels: [MovieViewModel]
   private let repository: MovieListRepository
   
   init(view: MovieListView, movies: [Movie], repository: MovieListRepository = .init()) {
     self.view = view
-    self.movies = movies
+    self.movieViewModels = movies.map { MovieViewModel(with: $0) }
     self.repository = repository
   }
   
   func onViewDidLoad() {
-    let viewModels = movies.map { MovieViewModel(with: $0) }
-    view?.show(movies: viewModels)
+    view?.show(movies: movieViewModels)
   }
   
-  func onShowMovie(with path: String) {
-    
+  func onRefresh() {
+    repository.repeatLastSearch(onSuccess: { [weak self] movies in
+      guard let `self` = self else { return }
+      
+      self.movieViewModels = movies.map { MovieViewModel(with: $0) }
+      self.view?.endRefreshing()
+      self.view?.show(movies: self.movieViewModels)
+      
+      }, onError: { [weak self] message in
+        self?.view?.endRefreshing()
+        self?.view?.show(message: message)
+    })
   }
 }

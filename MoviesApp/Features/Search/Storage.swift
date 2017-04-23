@@ -9,16 +9,19 @@ class Storage {
   }
   
   func add(suggestion: String) {
-    if suggestions.count > 9 {
-      suggestions.insert(suggestion, at: 0)
-    } else {
-      suggestions.append(suggestion)
+    if suggestions.count == 10 {
+      suggestions.remove(at: 0)
     }
+    suggestions.append(suggestion)
     Defaults[.suggestions] = suggestions
   }
   
   func getSuggestions() -> [String] {
     return suggestions
+  }
+  
+  func getLastSuggestion() -> String? {
+    return suggestions.last
   }
 }
 

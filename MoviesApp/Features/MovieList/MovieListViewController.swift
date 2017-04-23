@@ -7,6 +7,8 @@ class MovieListViewController: ViewController, MovieListView {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    title = "movie_list_screen_title".localized
+    setRefreshControlOn(tableView, action: #selector(refresh))
     presenter.onViewDidLoad()
   }
   
@@ -14,5 +16,9 @@ class MovieListViewController: ViewController, MovieListView {
     let rows: [Row] = movies.map { TableRow<MovieListCell>(item: $0) }
     tableSection.append(rows: rows)
     tableDirector += tableSection
+  }
+  
+  func refresh() {
+    presenter.onRefresh()
   }
 }
