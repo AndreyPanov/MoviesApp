@@ -4,26 +4,52 @@ import Mockit
 
 class MovieListPresenterTest: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+  var presenter: MovieListPresenter!
+  var view: MovieListViewMock!
+  var repository: MovieListRepositoryMock!
+  
+  override func setUp() {
+    super.setUp()
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+    view = MovieListViewMock(with: self)
+    repository = MovieListRepositoryMock(with: self)
+    presenter = MovieListPresenter(view: view, movies: MovieBuilder.movies(), repository: repository)
+  }
+  
+  override func tearDown() {
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    view = nil
+    repository = nil
+    presenter = nil
+    super.tearDown()
+  }
+  
+  func testOnViewDidLoad() {
+    let viewModels = MovieBuilder.movies().map { MovieViewModel(with: $0) }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    presenter.onViewDidLoad()
     
+    verify(view).show(movies: viewModels)
+  }
+  
+  func testOnRefreshWithSuccess() {
+    let viewModels = MovieBuilder.movies().map { MovieViewModel(with: $0) }
+    repository.state = .success
+    
+    presenter.onRefresh()
+    
+    verify(repository).repeatLastSearch(onSuccess: { _ in }, onError: { _ in })
+    verify(view).show(movies: viewModels)
+    verify(view).endRefreshing()
+  }
+  
+  func testOnRefreshWithFail() {
+    repository.state = .failure
+    
+    presenter.onRefresh()
+    
+    verify(repository).repeatLastSearch(onSuccess: { _ in }, onError: { _ in })
+    verify(view).endRefreshing()
+    verify(view).show(message: "error")
+  }
 }

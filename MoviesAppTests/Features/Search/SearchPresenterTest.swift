@@ -5,7 +5,6 @@ import Mockit
 class SearchPresenterTest: XCTestCase {
   
   var presenter: SearchPresenter!
-  
   var view: SearchViewMock!
   var repository: SearchRepositoryMock!
   
@@ -30,6 +29,7 @@ class SearchPresenterTest: XCTestCase {
     
     presenter.onViewWillAppear()
     
+    verify(repository).getLastSearchResults(onSuccess: { _ in })
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
   }
   
@@ -38,6 +38,7 @@ class SearchPresenterTest: XCTestCase {
     
     presenter.onViewWillAppear()
     
+    verify(repository).getLastSearchResults(onSuccess: { _ in })
     verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
   }
   
@@ -50,6 +51,7 @@ class SearchPresenterTest: XCTestCase {
     
     presenter.onSearch("Batman")
     
+    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).showLoadingIndicator()
     verify(view).hideLoadingIndicator()
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
@@ -61,6 +63,7 @@ class SearchPresenterTest: XCTestCase {
     
     presenter.onSearch("Batman")
     
+    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).showLoadingIndicator()
     verify(view).hideLoadingIndicator()
     verify(view).show(message: "error")
@@ -69,6 +72,7 @@ class SearchPresenterTest: XCTestCase {
   func testSearchWithNilText() {
     presenter.onSearch(nil)
     
+    verify(repository, Times(times: never)).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
     verify(view, Times(times: never)).showLoadingIndicator()
     verify(view, Times(times: never)).hideLoadingIndicator()
     verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
