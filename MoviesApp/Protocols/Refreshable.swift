@@ -2,6 +2,8 @@ import UIKit
 
 protocol Refreshable: class {
   var refreshControl: UIRefreshControl? { get set }
+  func beginRefreshing()
+  func endRefreshing()
 }
 
 extension Refreshable {

@@ -143,7 +143,7 @@ public class OptionalArrayMatcher: TypeMatcher {
     }
   }
 
-  private func match<T: Any>(array: Array<T?>, withArray: Array<T?>) -> Bool {
+  fileprivate func match<T: Any>(_ array: Array<T?>, withArray: Array<T?>) -> Bool {
     guard array.count == withArray.count else {
       return false
     }
@@ -180,7 +180,7 @@ public class NonOptionalArrayMatcher: TypeMatcher {
     }
   }
 
-  private func match<T: Any>(array: Array<T>, withArray: Array<T>) -> Bool {
+  fileprivate func match<T: Any>(_ array: Array<T>, withArray: Array<T>) -> Bool {
     guard array.count == withArray.count else {
       return false
     }
@@ -229,7 +229,7 @@ public class OptionalDictionaryMatcher: TypeMatcher {
     }
   }
 
-  private func match<T1: Any, T2: Any>(dictionary: Dictionary<T1, T2?>, withDictionary: Dictionary<T1, T2?>) -> Bool {
+  fileprivate func match<T1: Any, T2: Any>(_ dictionary: Dictionary<T1, T2?>, withDictionary: Dictionary<T1, T2?>) -> Bool {
     var firstDictionaryKeys = Array<T1>()
     var secondDictionaryKeys = Array<T1>()
 
@@ -289,7 +289,7 @@ public class NonOptionalDictionaryMatcher: TypeMatcher {
     }
   }
 
-  private func match<T1: Any, T2: Any>(dictionary: Dictionary<T1, T2>, withDictionary: Dictionary<T1, T2>) -> Bool {
+  fileprivate func match<T1: Any, T2: Any>(_ dictionary: Dictionary<T1, T2>, withDictionary: Dictionary<T1, T2>) -> Bool {
     var firstDictionaryKeys = Array<T1>()
     var secondDictionaryKeys = Array<T1>()
 
