@@ -25,7 +25,7 @@ class SearchPresenterTest: XCTestCase {
     super.tearDown()
   }
   
-  func testOnViewWillAppearSuggestions() {
+  func testOnViewWillAppearWithSuggestions() {
     repository.state = .success
     
     presenter.onViewWillAppear()
@@ -33,40 +33,44 @@ class SearchPresenterTest: XCTestCase {
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
   }
   
-  func testOnViewWillAppearNoSuggestions() {
+  func testOnViewWillAppearWithNoSuggestions() {
     repository.state = .empty
     
     presenter.onViewWillAppear()
     
     verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
   }
+  
+  func testSearchWithSuccess() {
+    repository.state = .success
+    var movies: [Movie] = []
+    view.onMoviesSelected = { list in
+      movies = list
+    }
+    
+    presenter.onSearch("Batman")
+    
+    verify(view).showLoadingIndicator()
+    verify(view).hideLoadingIndicator()
+    verify(view).show(suggestions: SuggestionBuilder.suggestions())
+    XCTAssertEqual(movies.count, MovieBuilder.movies().count)
+  }
+  
+  func testSearchWithFail() {
+    repository.state = .failure
+    
+    presenter.onSearch("Batman")
+    
+    verify(view).showLoadingIndicator()
+    verify(view).hideLoadingIndicator()
+    verify(view).show(message: "error")
+  }
+  
+  func testSearchWithNilText() {
+    presenter.onSearch(nil)
+    
+    verify(view, Times(times: never)).showLoadingIndicator()
+    verify(view, Times(times: never)).hideLoadingIndicator()
+    verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
+  }
 }
-
-/*
- func onViewWillAppear() {
- updateSuggestions()
- }
- 
- func onSearch(_ text: String?) {
- guard let text = text else { return }
- 
- view?.showLoadingIndicator()
- repository.searchMovies(with: text, onSuccess: { [weak self] movies in
- self?.view?.hideLoadingIndicator()
- self?.updateSuggestions()
- self?.view?.onMoviesSelected?(movies)
- 
- }, onError: { [weak self] message in
- self?.view?.hideLoadingIndicator()
- self?.view?.show(message: message)
- })
- }
- 
- private func updateSuggestions() {
- repository.getLastSearchResults { [unowned self] suggestions in
- guard !suggestions.isEmpty else { return }
- self.view?.show(suggestions: suggestions)
- }
- }
- }
- */
