@@ -29,6 +29,9 @@
 		AD7E4C711EAE859D00A8E681 /* MovieBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E4C701EAE859D00A8E681 /* MovieBuilder.swift */; };
 		AD7E4C731EAE87D500A8E681 /* SuggestionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E4C721EAE87D500A8E681 /* SuggestionBuilder.swift */; };
 		AD7E4C751EAE8CA400A8E681 /* XCTestCaseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E4C741EAE8CA400A8E681 /* XCTestCaseExtensions.swift */; };
+		AD7E4C771EAE90A800A8E681 /* MovieListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E4C761EAE90A800A8E681 /* MovieListPresenterTest.swift */; };
+		AD7E4C791EAE90CE00A8E681 /* MovieListViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E4C781EAE90CE00A8E681 /* MovieListViewMock.swift */; };
+		AD7E4C7B1EAE90E400A8E681 /* MovieListRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E4C7A1EAE90E400A8E681 /* MovieListRepositoryMock.swift */; };
 		ADE2BE491EA7C203007E7A97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2BE481EA7C203007E7A97 /* ViewController.swift */; };
 		ADE2BE4C1EA7C240007E7A97 /* IndicatorShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2BE4B1EA7C240007E7A97 /* IndicatorShowable.swift */; };
 		ADE2BE551EABCE47007E7A97 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2BE541EABCE47007E7A97 /* MovieListViewController.swift */; };
@@ -100,6 +103,9 @@
 		AD7E4C701EAE859D00A8E681 /* MovieBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieBuilder.swift; sourceTree = "<group>"; };
 		AD7E4C721EAE87D500A8E681 /* SuggestionBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionBuilder.swift; sourceTree = "<group>"; };
 		AD7E4C741EAE8CA400A8E681 /* XCTestCaseExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestCaseExtensions.swift; sourceTree = "<group>"; };
+		AD7E4C761EAE90A800A8E681 /* MovieListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListPresenterTest.swift; sourceTree = "<group>"; };
+		AD7E4C781EAE90CE00A8E681 /* MovieListViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewMock.swift; sourceTree = "<group>"; };
+		AD7E4C7A1EAE90E400A8E681 /* MovieListRepositoryMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListRepositoryMock.swift; sourceTree = "<group>"; };
 		ADE2BE481EA7C203007E7A97 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		ADE2BE4B1EA7C240007E7A97 /* IndicatorShowable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorShowable.swift; sourceTree = "<group>"; };
 		ADE2BE541EABCE47007E7A97 /* MovieListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
@@ -318,6 +324,9 @@
 		ADE2BE711EAD40BB007E7A97 /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
+				AD7E4C761EAE90A800A8E681 /* MovieListPresenterTest.swift */,
+				AD7E4C781EAE90CE00A8E681 /* MovieListViewMock.swift */,
+				AD7E4C7A1EAE90E400A8E681 /* MovieListRepositoryMock.swift */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -673,10 +682,13 @@
 				ADE2BE7A1EAD463D007E7A97 /* SearchRepositoryMock.swift in Sources */,
 				AD7E4C6F1EAE847E00A8E681 /* RepositoryState.swift in Sources */,
 				ADE2BE781EAD4626007E7A97 /* SearchViewMock.swift in Sources */,
+				AD7E4C771EAE90A800A8E681 /* MovieListPresenterTest.swift in Sources */,
 				AD7E4C731EAE87D500A8E681 /* SuggestionBuilder.swift in Sources */,
 				ADE2BE761EAD44D2007E7A97 /* SearchPresenterTest.swift in Sources */,
+				AD7E4C7B1EAE90E400A8E681 /* MovieListRepositoryMock.swift in Sources */,
 				AD7E4C751EAE8CA400A8E681 /* XCTestCaseExtensions.swift in Sources */,
 				AD7E4C711EAE859D00A8E681 /* MovieBuilder.swift in Sources */,
+				AD7E4C791EAE90CE00A8E681 /* MovieListViewMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
