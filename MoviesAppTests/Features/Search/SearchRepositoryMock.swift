@@ -19,8 +19,8 @@ class SearchRepositoryMock: SearchRepository, Mock {
     callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
     
     switch state {
-    case .success: onSuccess(MovieBuilder.movies())
-    default: onError("error")
+      case .success: onSuccess(SuggestionBuilder.suggestions())
+      default: onSuccess([])
     }
   }
   

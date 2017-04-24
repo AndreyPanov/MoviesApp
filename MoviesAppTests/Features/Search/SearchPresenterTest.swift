@@ -25,7 +25,21 @@ class SearchPresenterTest: XCTestCase {
     super.tearDown()
   }
   
+  func testOnViewWillAppearSuggestions() {
+    repository.state = .success
+    
+    presenter.onViewWillAppear()
+    
+    verify(view).show(suggestions: SuggestionBuilder.suggestions())
+  }
   
+  func testOnViewWillAppearNoSuggestions() {
+    repository.state = .empty
+    
+    presenter.onViewWillAppear()
+    
+    verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
+  }
 }
 
 /*
