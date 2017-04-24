@@ -40,7 +40,8 @@ public protocol CallHandler {
 
   func getArgs(callOrder order: Int)
 
-  func accept(returnValue: Any?, ofFunction function: String, atFile file: String,
+  @discardableResult
+  func accept(_ returnValue: Any?, ofFunction function: String, atFile file: String,
                      inLine line: UInt, withArgs args: Any?...) -> Any?
 
 }

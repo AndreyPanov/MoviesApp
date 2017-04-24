@@ -37,7 +37,7 @@ public class VerificationData {
 
   public typealias buildVerificationDataClosure = (VerificationData) -> Void
 
-  public init(@noescape build: buildVerificationDataClosure) {
+  public init(build: buildVerificationDataClosure) {
     build(self)
   }
 }
