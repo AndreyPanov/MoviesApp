@@ -16,17 +16,21 @@ class SearchRepositoryMock: SearchRepository, Mock {
   }
   
   override func getLastSearchResults(onSuccess: @escaping ([String]) -> Void) {
+    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
     
+    switch state {
+    case .success: onSuccess(MovieBuilder.movies())
+    default: onError("error")
+    }
   }
   
   override func searchMovies(with name: String, onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
     callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: name)
 
     switch state {
-    case .success:
-      onSuccess(VehicleOptions())
-    default:
-      onError(Error())
+      case .success: onSuccess(MovieBuilder.movies())
+      case .failWith(let string): onError(string)
+      default: onError("error")
     }
   }
 }
