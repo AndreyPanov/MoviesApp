@@ -32,6 +32,8 @@ class SearchViewController: ViewController, SearchView, UISearchBarDelegate {
     }
     let rows: [Row] = suggestions.map { TableRow<SuggestionCell>(item: $0, actions: [action]) }
     tableDirector += TableSection(headerTitle: "search_sceen_header".localized, footerTitle: nil, rows: rows)
+    
+    tableView.reloadData()
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

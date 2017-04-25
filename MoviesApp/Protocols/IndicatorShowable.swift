@@ -9,7 +9,7 @@ extension IndicatorShowable where Self: UIViewController {
   
   func showLoadingIndicator() {
     let indicator = MBProgressHUD.showAdded(to: self.view, animated: true)
-    indicator.mode = .determinate
+    indicator.mode = .indeterminate
     indicator.show(animated: true)
   }
   

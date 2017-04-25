@@ -16,6 +16,7 @@ class MovieListViewController: ViewController, MovieListView {
     tableDirector.clear()
     let rows: [Row] = movies.map { TableRow<MovieListCell>(item: $0) }
     tableDirector += TableSection(rows: rows)
+    tableView.reloadData()
   }
   
   func refresh() {
