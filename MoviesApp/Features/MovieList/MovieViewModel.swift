@@ -34,7 +34,7 @@ class MovieViewModel {
     guard image == nil else { onSuccess(image); return }
     guard let path = movie.imagePath else { return }
     print("Start load \(movie.title)")
-    let request = Alamofire.download("http://image.tmdb.org/t/p/w92" + path)
+    let request = Alamofire.download(URL.forImage + path)
     request.responseData { [weak self] response in
       switch response.result {
         case .success(let data):
