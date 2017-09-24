@@ -12,7 +12,7 @@ target 'MoviesApp' do
 
   target 'MoviesAppTests' do
     inherit! :search_paths
-    pod 'Mockit', '1.3.4'
+    pod 'Mockit'
   end
 
   target 'MoviesAppUITests' do

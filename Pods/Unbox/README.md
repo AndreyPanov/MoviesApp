@@ -1,9 +1,27 @@
-# Unbox
+<p align="center">
+    <img src="logo.png" width="300" max-width="50%" alt="Unbox" />
+</p>
 
-[![Travis](https://img.shields.io/travis/JohnSundell/Unbox/master.svg)](https://travis-ci.org/JohnSundell/Unbox/branches)
-[![CocoaPods](https://img.shields.io/cocoapods/v/Unbox.svg)](https://cocoapods.org/pods/Unbox)
-[![Carthage](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Twitter: @johnsundell](https://img.shields.io/badge/contact-@johnsundell-blue.svg?style=flat)](https://twitter.com/johnsundell)
+<p align="center">
+    <b>Unbox</b>
+    |
+    <a href="https://github.com/johnsundell/wrap">Wrap</a>
+</p>
+
+<p align="center">
+    <a href="https://travis-ci.org/JohnSundell/Unbox/branches">
+        <img src="https://img.shields.io/travis/JohnSundell/Unbox/master.svg" alt="Travis status" />
+    </a>
+    <a href="https://cocoapods.org/pods/Unbox">
+        <img src="https://img.shields.io/cocoapods/v/Unbox.svg" alt="CocoaPods" />
+    </a>
+    <a href="https://github.com/Carthage/Carthage">
+        <img src="https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat" alt="Carthage" />
+    </a>
+    <a href="https://twitter.com/johnsundell">
+        <img src="https://img.shields.io/badge/contact-@johnsundell-blue.svg?style=flat" alt="Twitter: @johnsundell" />
+    </a>
+</p>
 
 Unbox is an easy to use Swift JSON decoder. Don't spend hours writing JSON decoding code - just unbox it instead!
 
@@ -161,6 +179,59 @@ struct UniqueIdentifier: UnboxableByTransform {
 
     static func transform(unboxedValue: String) -> UniqueIdentifier? {
         return UniqueIdentifier(identifierString: unboxedValue)
+    }
+}
+```
+
+### Formatters
+
+If you have values that need to be formatted before use, Unbox supports using formatters to automatically format an unboxed value. Any `DateFormatter` can out of the box be used to format dates, but you can also add formatters for your own custom types, like this:
+
+```swift
+enum Currency {
+    case usd(Int)
+    case sek(Int)
+    case pln(Int)
+}
+
+struct CurrencyFormatter: UnboxFormatter {
+    func format(unboxedValue: String) -> Currency? {
+        let components = unboxedValue.components(separatedBy: ":")
+
+        guard components.count == 2 else {
+            return nil
+        }
+
+        let identifier = components[0]
+
+        guard let value = Int(components[1]) else {
+            return nil
+        }
+
+        switch identifier {
+        case "usd":
+            return .usd(value)
+        case "sek":
+            return .sek(value)
+        case "pln":
+            return .pln(value)
+        default:
+            return nil
+        }
+    }
+}
+```
+
+You can now easily unbox any `Currency` using a given `CurrencyFormatter`:
+
+```swift
+struct Product: Unboxable {
+    let name: String
+    let price: Currency
+
+    init(unboxer: Unboxer) throws {
+        name = try unboxer.unbox(key: "name")
+        price = try unboxer.unbox(key: "price", formatter: CurrencyFormatter())
     }
 }
 ```
@@ -347,7 +418,7 @@ Use the `do, try, catch` pattern to catch and handle the error:
 do {
     let model: Model = try unbox(data: data)
 } catch {
-    print("An error occured: \(error)")
+    print("An error occurred: \(error)")
 }
 ```
 
@@ -360,3 +431,5 @@ If you need any help in resolving any problems that you might encounter while us
 ### Hope you enjoy unboxing your JSON!
 
 For more updates on Unbox, and my other open source projects, follow me on Twitter: [@johnsundell](http://www.twitter.com/johnsundell)
+
+Also make sure to check out [Wrap](http://github.com/johnsundell/wrap) that let’s you easily **encode** JSON.

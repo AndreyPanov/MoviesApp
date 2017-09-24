@@ -8,7 +8,7 @@ class MovieListViewController: ViewController, MovieListView {
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "movie_list_screen_title".localized
-    setRefreshControlOn(tableView, action: #selector(refresh))
+    setRefreshControlOn(tableView, action: #selector(MovieListViewController.refresh))
     presenter.onViewDidLoad()
   }
   
@@ -19,7 +19,7 @@ class MovieListViewController: ViewController, MovieListView {
     tableView.reloadData()
   }
   
-  func refresh() {
+  @objc func refresh() {
     presenter.onRefresh()
   }
 }

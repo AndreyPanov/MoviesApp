@@ -30,8 +30,10 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     private weak var scrollDelegate: UIScrollViewDelegate?
     private var cellRegisterer: TableCellRegisterer?
-    public var rowHeightCalculator: RowHeightCalculator?
-
+    public private(set) var rowHeightCalculator: RowHeightCalculator?
+    private var sectionsIndexTitlesIndexes: [Int]?
+    
+    @available(*, deprecated, message: "Produced incorrect behaviour")
     open var shouldUsePrototypeCellHeightCalculation: Bool = false {
         didSet {
             if shouldUsePrototypeCellHeightCalculation {
@@ -46,19 +48,27 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return sections.isEmpty
     }
     
-    public init(tableView: UITableView, scrollDelegate: UIScrollViewDelegate? = nil, shouldUseAutomaticCellRegistration: Bool = true) {
+    public init(tableView: UITableView, scrollDelegate: UIScrollViewDelegate? = nil, shouldUseAutomaticCellRegistration: Bool = true, cellHeightCalculator: RowHeightCalculator?) {
         super.init()
         
         if shouldUseAutomaticCellRegistration {
             self.cellRegisterer = TableCellRegisterer(tableView: tableView)
         }
-
+        
+        self.rowHeightCalculator = cellHeightCalculator
         self.scrollDelegate = scrollDelegate
         self.tableView = tableView
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveAction), name: NSNotification.Name(rawValue: TableKitNotifications.CellAction), object: nil)
+    }
+    
+    public convenience init(tableView: UITableView, scrollDelegate: UIScrollViewDelegate? = nil, shouldUseAutomaticCellRegistration: Bool = true, shouldUsePrototypeCellHeightCalculation: Bool = false) {
+
+        let heightCalculator: TablePrototypeCellHeightCalculator? = shouldUsePrototypeCellHeightCalculation ? TablePrototypeCellHeightCalculator(tableView: tableView) : nil
+        
+        self.init(tableView: tableView, scrollDelegate: scrollDelegate, shouldUseAutomaticCellRegistration: shouldUseAutomaticCellRegistration, cellHeightCalculator: heightCalculator)
     }
     
     deinit {
@@ -84,7 +94,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return scrollDelegate?.responds(to: selector) == true ? scrollDelegate : super.forwardingTarget(for: selector)
     }
     
-    // MARK: - Internal -
+    // MARK: - Internal
     
     func hasAction(_ action: TableRowActionType, atIndexPath indexPath: IndexPath) -> Bool {
         return sections[indexPath.section].rows[indexPath.row].has(action: action)
@@ -106,7 +116,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
             cellRegisterer?.register(cellType: row.cellType, forCellReuseIdentifier: row.reuseIdentifier)
         }
         
-        return row.estimatedHeight ?? rowHeightCalculator?.estimatedHeight(forRow: row, at: indexPath) ?? UITableViewAutomaticDimension
+        return row.defaultHeight ?? row.estimatedHeight ?? rowHeightCalculator?.estimatedHeight(forRow: row, at: indexPath) ?? UITableViewAutomaticDimension
     }
     
     open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -183,6 +193,32 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return section.footerHeight ?? section.footerView?.frame.size.height ?? UITableViewAutomaticDimension
     }
     
+    // MARK: UITableViewDataSource - Index
+    
+    public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        
+        var indexTitles = [String]()
+        var indexTitlesIndexes = [Int]()
+        sections.enumerated().forEach { index, section in
+            
+            if let title = section.indexTitle {
+                indexTitles.append(title)
+                indexTitlesIndexes.append(index)
+            }
+        }
+        if !indexTitles.isEmpty {
+            
+            sectionsIndexTitlesIndexes = indexTitlesIndexes
+            return indexTitles
+        }
+        sectionsIndexTitlesIndexes = nil
+        return nil
+    }
+    
+    public func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return sectionsIndexTitlesIndexes?[index] ?? 0
+    }
+    
     // MARK: UITableViewDelegate - actions
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -216,7 +252,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return indexPath
     }
     
-    // MARK: - Row editing -
+    // MARK: - Row editing
     
     open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return sections[indexPath.section].rows[indexPath.row].isEditingAllowed(forIndexPath: indexPath)
@@ -262,6 +298,15 @@ extension TableDirector {
     open func insert(section: TableSection, atIndex index: Int) -> Self {
         
         sections.insert(section, at: index)
+        return self
+    }
+    
+    @discardableResult
+    open func replaceSection(at index: Int, with section: TableSection) -> Self {
+        
+        if index < sections.count {
+            sections[index] = section
+        }
         return self
     }
     
