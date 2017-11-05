@@ -100,6 +100,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         return sections[indexPath.section].rows[indexPath.row].has(action: action)
     }
     
+    @objc
     func didReceiveAction(_ notification: Notification) {
         
         guard let action = notification.object as? TableCellAction, let indexPath = tableView?.indexPath(for: action.cell) else { return }
@@ -251,7 +252,7 @@ open class TableDirector: NSObject, UITableViewDataSource, UITableViewDelegate {
         }
         return indexPath
     }
-    
+
     // MARK: - Row editing
     
     open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -1,3 +1,3 @@
-protocol MovieListView: class, Presentable, Refreshable, AlertShowable {
+protocol MovieListView: Presentable, Refreshable, AlertShowable {
   func show(movies: [MovieViewModel])
 }

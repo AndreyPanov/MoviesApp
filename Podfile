@@ -10,13 +10,4 @@ target 'MoviesApp' do
   pod 'Alamofire'
   pod 'SwiftyUserDefaults'
 
-  target 'MoviesAppTests' do
-    inherit! :search_paths
-    pod 'Mockit'
-  end
-
-  target 'MoviesAppUITests' do
-    inherit! :search_paths
-  end
-
 end

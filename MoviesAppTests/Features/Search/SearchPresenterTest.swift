@@ -1,8 +1,7 @@
 import XCTest
-import Mockit
 @testable import MoviesApp
 
-class SearchPresenterTest: XCTestCase {
+class SearchPresenterTest: BaseTestCase {
   
   var presenter: SearchPresenter!
   var view: SearchViewMock!
@@ -31,6 +30,7 @@ class SearchPresenterTest: XCTestCase {
     
     verify(repository).getLastSearchResults(onSuccess: { _ in })
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
+    verifyOrder()
   }
   
   func testOnViewWillAppearWithNoSuggestions() {
@@ -39,7 +39,7 @@ class SearchPresenterTest: XCTestCase {
     presenter.onViewWillAppear()
     
     verify(repository).getLastSearchResults(onSuccess: { _ in })
-    verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
+    verifyOrder()
   }
   
   func testSearchWithSuccess() {
@@ -51,11 +51,13 @@ class SearchPresenterTest: XCTestCase {
     
     presenter.onSearch("Batman")
     
-    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).showLoadingIndicator()
+    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).hideLoadingIndicator()
+    verify(repository).getLastSearchResults(onSuccess: { _ in })
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
     XCTAssertEqual(movies.count, MovieBuilder.movies().count)
+    verifyOrder()
   }
   
   func testSearchWithFail() {
@@ -63,18 +65,17 @@ class SearchPresenterTest: XCTestCase {
     
     presenter.onSearch("Batman")
     
-    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).showLoadingIndicator()
+    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).hideLoadingIndicator()
     verify(view).show(message: "error")
+    verifyOrder()
   }
   
   func testSearchWithNilText() {
     presenter.onSearch(nil)
     
-    verify(repository, Times(times: never)).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
-    verify(view, Times(times: never)).showLoadingIndicator()
-    verify(view, Times(times: never)).hideLoadingIndicator()
-    verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
+    verify(repository, .never).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
+    verify(view, .never).showLoadingIndicator()
   }
 }

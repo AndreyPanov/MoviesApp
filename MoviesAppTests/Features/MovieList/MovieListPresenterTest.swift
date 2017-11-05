@@ -1,8 +1,8 @@
 import XCTest
-import Mockit
+
 @testable import MoviesApp
 
-class MovieListPresenterTest: XCTestCase {
+class MovieListPresenterTest: BaseTestCase {
     
   var presenter: MovieListPresenter!
   var view: MovieListViewMock!
@@ -30,6 +30,7 @@ class MovieListPresenterTest: XCTestCase {
     presenter.onViewDidLoad()
     
     verify(view).show(movies: viewModels)
+    verifyOrder()
   }
   
   func testOnRefreshWithSuccess() {
@@ -39,8 +40,9 @@ class MovieListPresenterTest: XCTestCase {
     presenter.onRefresh()
     
     verify(repository).repeatLastSearch(onSuccess: { _ in }, onError: { _ in })
-    verify(view).show(movies: viewModels)
     verify(view).endRefreshing()
+    verify(view).show(movies: viewModels)
+    verifyOrder()
   }
   
   func testOnRefreshWithFail() {
@@ -51,5 +53,6 @@ class MovieListPresenterTest: XCTestCase {
     verify(repository).repeatLastSearch(onSuccess: { _ in }, onError: { _ in })
     verify(view).endRefreshing()
     verify(view).show(message: "error")
+    verifyOrder()
   }
 }

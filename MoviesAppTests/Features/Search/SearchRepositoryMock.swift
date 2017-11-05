@@ -1,14 +1,14 @@
 import XCTest
-import Mockit
+
 @testable import MoviesApp
 
 class SearchRepositoryMock: SearchRepository, Mock {
   
-  let callHandler: Mockit.CallHandler
+  let callHandler: CallHandler
   var state: RepositoryMockState<[Movie]> = .success
   
-  init(with testCase: XCTestCase) {
-    callHandler = CallHandlerImpl(withTestCase: testCase)
+  init(with testCase: BaseTestCase) {
+    callHandler = CallHandler(withTestCase: testCase)
   }
   
   func instanceType() -> SearchRepositoryMock {
@@ -16,7 +16,7 @@ class SearchRepositoryMock: SearchRepository, Mock {
   }
   
   override func getLastSearchResults(onSuccess: @escaping ([String]) -> Void) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
     
     switch state {
       case .success: onSuccess(SuggestionBuilder.suggestions())
@@ -25,7 +25,7 @@ class SearchRepositoryMock: SearchRepository, Mock {
   }
   
   override func searchMovies(with name: String, onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: name)
+    callHandler.accept(function: #function, file: #file, line: #line)
 
     switch state {
       case .success: onSuccess(MovieBuilder.movies())
