@@ -19,6 +19,7 @@ class SearchViewMock: SearchView, Mock {
     callHandler
       .accept(function: #function, file: #file, line: #line)
       .join(with: .strings(suggestions))
+      .check(function: #function, file: #file, line: #line)
   }
   
   func showLoadingIndicator() {
@@ -30,7 +31,10 @@ class SearchViewMock: SearchView, Mock {
   }
   
   func show(message text: String) {
-    callHandler.accept(function: #function, file: #file, line: #line)
+    callHandler
+      .accept(function: #function, file: #file, line: #line)
+      .join(with: .string(text))
+      .check(function: #function, file: #file, line: #line)
   }
   
   func toPresent() -> UIViewController? {

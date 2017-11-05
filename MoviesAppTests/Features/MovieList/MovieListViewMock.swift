@@ -16,10 +16,14 @@ class MovieListViewMock: MovieListView, Mock {
   
   func show(movies: [MovieViewModel]) {
     callHandler.accept(function: #function, file: #file, line: #line)
+      .join(with: .movies(movies))
+      .check(function: #function, file: #file, line: #line)
   }
   
   func show(message text: String) {
     callHandler.accept(function: #function, file: #file, line: #line)
+      .join(with: .string(text))
+      .check(function: #function, file: #file, line: #line)
   }
   
   func beginRefreshing() {

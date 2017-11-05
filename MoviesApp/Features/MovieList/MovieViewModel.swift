@@ -1,7 +1,7 @@
 import UIKit
 import Alamofire
 
-class MovieViewModel {
+class MovieViewModel: Equatable {
   
   var title: String {
     if let date = date {
@@ -41,4 +41,10 @@ class MovieViewModel {
       onSuccess(self?.image)
     }
   }
+}
+
+func == (lhs: MovieViewModel, rhs: MovieViewModel) -> Bool {
+  return lhs.title == rhs.title
+    && lhs.overview == rhs.overview
+    && lhs.date == rhs.date
 }
