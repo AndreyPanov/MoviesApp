@@ -1,14 +1,13 @@
 import XCTest
-import Mockit
 @testable import MoviesApp
 
 class MovieListRepositoryMock: MovieListRepository, Mock {
   
-  let callHandler: Mockit.CallHandler
+  let callHandler: CallHandler
   var state: RepositoryMockState<[Movie]> = .success
   
-  init(with testCase: XCTestCase) {
-    callHandler = CallHandlerImpl(withTestCase: testCase)
+  init(with testCase: BaseTestCase) {
+    callHandler = CallHandler(withTestCase: testCase)
   }
   
   func instanceType() -> MovieListRepositoryMock {
@@ -16,7 +15,7 @@ class MovieListRepositoryMock: MovieListRepository, Mock {
   }
   
   override func repeatLastSearch(onSuccess: @escaping ([Movie]) -> Void, onError: @escaping (String) -> Void) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
     
     switch state {
       case .success: onSuccess(MovieBuilder.movies())

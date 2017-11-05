@@ -1,14 +1,13 @@
 import XCTest
-import Mockit
 @testable import MoviesApp
 
 class MovieListViewMock: MovieListView, Mock {
   
-  let callHandler: Mockit.CallHandler
+  let callHandler: CallHandler
   var refreshControl: UIRefreshControl?
   
-  init(with testCase: XCTestCase) {
-    callHandler = CallHandlerImpl(withTestCase: testCase)
+  init(with testCase: BaseTestCase) {
+    callHandler = CallHandler(withTestCase: testCase)
   }
   
   func instanceType() -> MovieListViewMock {
@@ -16,19 +15,19 @@ class MovieListViewMock: MovieListView, Mock {
   }
   
   func show(movies: [MovieViewModel]) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: movies)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func show(message text: String) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func beginRefreshing() {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func endRefreshing() {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func toPresent() -> UIViewController? {

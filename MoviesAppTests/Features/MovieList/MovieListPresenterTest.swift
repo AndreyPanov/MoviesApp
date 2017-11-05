@@ -1,8 +1,8 @@
 import XCTest
-import Mockit
+
 @testable import MoviesApp
 
-class MovieListPresenterTest: XCTestCase {
+class MovieListPresenterTest: BaseTestCase {
     
   var presenter: MovieListPresenter!
   var view: MovieListViewMock!

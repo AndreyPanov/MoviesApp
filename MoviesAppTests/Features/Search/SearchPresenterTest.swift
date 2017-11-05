@@ -1,8 +1,7 @@
 import XCTest
-import Mockit
 @testable import MoviesApp
 
-class SearchPresenterTest: XCTestCase {
+class SearchPresenterTest: BaseTestCase {
   
   var presenter: SearchPresenter!
   var view: SearchViewMock!
@@ -39,7 +38,7 @@ class SearchPresenterTest: XCTestCase {
     presenter.onViewWillAppear()
     
     verify(repository).getLastSearchResults(onSuccess: { _ in })
-    verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
+    verify(view, .once).show(suggestions: SuggestionBuilder.suggestions())
   }
   
   func testSearchWithSuccess() {
@@ -72,9 +71,10 @@ class SearchPresenterTest: XCTestCase {
   func testSearchWithNilText() {
     presenter.onSearch(nil)
     
-    verify(repository, Times(times: never)).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
-    verify(view, Times(times: never)).showLoadingIndicator()
-    verify(view, Times(times: never)).hideLoadingIndicator()
-    verify(view, Times(times: never)).show(suggestions: SuggestionBuilder.suggestions())
+    verify(repository).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
+    verify(view).showLoadingIndicator()
+    verify(view).hideLoadingIndicator()
+    verify(view).show(suggestions: SuggestionBuilder.suggestions())
+    verifyOrder()
   }
 }

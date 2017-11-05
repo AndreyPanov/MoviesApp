@@ -1,13 +1,12 @@
 import XCTest
-import Mockit
 @testable import MoviesApp
 
 class SearchViewMock: SearchView, Mock {
 
-  let callHandler: Mockit.CallHandler
+  let callHandler: CallHandler
   
-  init(with testCase: XCTestCase) {
-    callHandler = CallHandlerImpl(withTestCase: testCase)
+  init(with testCase: BaseTestCase) {
+    callHandler = CallHandler(withTestCase: testCase)
   }
   
   func instanceType() -> SearchViewMock {
@@ -17,19 +16,21 @@ class SearchViewMock: SearchView, Mock {
   var onMoviesSelected: (([Movie]) -> Void)?
   
   func show(suggestions: [String]) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: suggestions)
+    callHandler
+      .accept(function: #function, file: #file, line: #line)
+      .join(with: .strings(suggestions))
   }
   
   func showLoadingIndicator() {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func hideLoadingIndicator() {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func show(message text: String) {
-    callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil)
+    callHandler.accept(function: #function, file: #file, line: #line)
   }
   
   func toPresent() -> UIViewController? {
