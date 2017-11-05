@@ -30,6 +30,7 @@ class SearchPresenterTest: BaseTestCase {
     
     verify(repository).getLastSearchResults(onSuccess: { _ in })
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
+    verifyOrder()
   }
   
   func testOnViewWillAppearWithNoSuggestions() {
@@ -38,7 +39,7 @@ class SearchPresenterTest: BaseTestCase {
     presenter.onViewWillAppear()
     
     verify(repository).getLastSearchResults(onSuccess: { _ in })
-    verify(view, .once).show(suggestions: SuggestionBuilder.suggestions())
+    verifyOrder()
   }
   
   func testSearchWithSuccess() {
@@ -50,11 +51,13 @@ class SearchPresenterTest: BaseTestCase {
     
     presenter.onSearch("Batman")
     
-    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).showLoadingIndicator()
+    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).hideLoadingIndicator()
+    verify(repository).getLastSearchResults(onSuccess: { _ in })
     verify(view).show(suggestions: SuggestionBuilder.suggestions())
     XCTAssertEqual(movies.count, MovieBuilder.movies().count)
+    verifyOrder()
   }
   
   func testSearchWithFail() {
@@ -62,19 +65,17 @@ class SearchPresenterTest: BaseTestCase {
     
     presenter.onSearch("Batman")
     
-    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).showLoadingIndicator()
+    verify(repository).searchMovies(with: "Batman", onSuccess: { _ in }, onError: { _ in })
     verify(view).hideLoadingIndicator()
     verify(view).show(message: "error")
+    verifyOrder()
   }
   
   func testSearchWithNilText() {
     presenter.onSearch(nil)
     
-    verify(repository).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
-    verify(view).showLoadingIndicator()
-    verify(view).hideLoadingIndicator()
-    verify(view).show(suggestions: SuggestionBuilder.suggestions())
-    verifyOrder()
+    verify(repository, .never).searchMovies(with: "", onSuccess: { _ in }, onError: { _ in })
+    verify(view, .never).showLoadingIndicator()
   }
 }

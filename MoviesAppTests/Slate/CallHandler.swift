@@ -9,7 +9,7 @@ class CallHandler {
   private var state = State.none
   private var invoked = Invoke.once
   private var callHistory: [String: UInt] = [:]
-  private var testCase: BaseTestCase
+  private let testCase: BaseTestCase
   private var original: [Equivalent] = []
   private var verified: [Equivalent] = []
   private let verifyOrder: Bool
@@ -27,11 +27,10 @@ class CallHandler {
   @discardableResult
   func accept(function: String, file: String, line: UInt) -> Self {
     switch state {
-    case .none:
-      recordCallHistory(ofFunction: function)
-    case .verify:
-      verifyCall(function: function, file: file, line: line)
-      state = .none
+      case .none: recordCallHistory(ofFunction: function)
+      case .verify:
+        verifyCall(function: function, file: file, line: line)
+        state = .none
     }
     return self
   }
@@ -39,8 +38,8 @@ class CallHandler {
   @discardableResult
   func join(with: Equivalent) -> Self {
     switch state {
-    case .none: original.append(with)
-    case .verify: verified.append(with)
+      case .none: original.append(with)
+      case .verify: verified.append(with)
     }
     return self
   }

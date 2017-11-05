@@ -30,6 +30,7 @@ class MovieListPresenterTest: BaseTestCase {
     presenter.onViewDidLoad()
     
     verify(view).show(movies: viewModels)
+    verifyOrder()
   }
   
   func testOnRefreshWithSuccess() {
@@ -39,8 +40,9 @@ class MovieListPresenterTest: BaseTestCase {
     presenter.onRefresh()
     
     verify(repository).repeatLastSearch(onSuccess: { _ in }, onError: { _ in })
-    verify(view).show(movies: viewModels)
     verify(view).endRefreshing()
+    verify(view).show(movies: viewModels)
+    verifyOrder()
   }
   
   func testOnRefreshWithFail() {
@@ -51,5 +53,6 @@ class MovieListPresenterTest: BaseTestCase {
     verify(repository).repeatLastSearch(onSuccess: { _ in }, onError: { _ in })
     verify(view).endRefreshing()
     verify(view).show(message: "error")
+    verifyOrder()
   }
 }
